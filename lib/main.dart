@@ -1,15 +1,33 @@
 import 'package:flutter/material.dart';
-import 'login/login.dart';
-import 'login/register.dart';
-void main() {
-  runApp(MyApp());
-}
+import 'package:firebase_firestoreapp/screens/home_page.dart';
+import 'package:firebase_firestoreapp/screens/login_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'dart:async';
+import 'package:flutter/services.dart';
 
+Future<void> main() async {
+ WidgetsFlutterBinding.ensureInitialized();
+ await Firebase.initializeApp();
+ runApp(MyApp());
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
+    ),
+  );
+}
 class MyApp extends StatelessWidget {
-@override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return MaterialApp(home: Scaffold(backgroundColor: Color.fromRGBO(232,249,253,100),
-    body: Login()));
-  }
+ @override
+ Widget build(BuildContext context) {
+ return MaterialApp(
+ debugShowCheckedModeBanner: false,
+ title: 'Firebase Firestore App',
+ routes: {
+ '/login': (context) => LoginPage(),
+ '/home': (context) => HomePage(),
+ },
+ home: LoginPage(),
+ );
+ }
 }
